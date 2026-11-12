@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>退職日シミュレーター|月末退職と月末1日前退職、負担はいくら変わる?</title>
+<meta name="description" content="退職日を月末にするか月末の1日前にするかで、健康保険・年金の本人負担がいくら変わるかを計算します。国民健康保険料の見込み額を入れるだけ。2026年度の料率に対応。">
+<style>
+:root{
+  --bg:#f6f8fa; --surface:#ffffff; --ink:#18232d; --sub:#5a6875; --line:#d5dde4;
+  --accent:#0d5c75; --accent-ink:#ffffff; --hl:#fff1c9; --hl-ink:#5b3d00; --warn:#8a4b00;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#10161b; --surface:#18212a; --ink:#e8eef3; --sub:#9aa9b6; --line:#2b3a47;
+    --accent:#5cc0dd; --accent-ink:#06222c; --hl:#3a2f10; --hl-ink:#ffe6a3; --warn:#f0b266; color-scheme:dark;}
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Noto Sans JP","Meiryo",sans-serif;
+  line-height:1.8;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+main{max-width:720px;margin:0 auto;padding:28px 18px 56px}
+h1{font-size:1.55rem;line-height:1.4;margin:0 0 10px;letter-spacing:.01em}
+h2{font-size:1.1rem;margin:36px 0 10px}
+p{margin:0 0 12px}
+.lead{color:var(--sub)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+.grid{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-weight:600;font-size:.93rem;margin-bottom:4px}
+.hint{display:block;font-weight:400;color:var(--sub);font-size:.82rem;line-height:1.5;margin-top:3px}
+input[type=number]{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;margin:0}
+.check input{margin-top:.55em;width:18px;height:18px;accent-color:var(--accent)}
+.span2{grid-column:1/-1}
+.verdict{background:var(--hl);color:var(--hl-ink);border-radius:10px;padding:16px 18px;font-size:1.2rem;font-weight:700;line-height:1.55;margin:22px 0 14px}
+.verdict small{display:block;font-size:.85rem;font-weight:400;margin-top:6px}
+.cmp{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media (max-width:560px){.cmp{grid-template-columns:1fr}}
+.cmp h3{margin:0 0 8px;font-size:1rem}
+table{width:100%;border-collapse:collapse;font-size:.93rem}
+td{padding:5px 0;border-bottom:1px dashed var(--line)}
+td:last-child{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{border-bottom:0;font-weight:700;padding-top:9px}
+.note{font-size:.88rem;color:var(--sub)}
+ul.cav{padding-left:1.2em;margin:0}
+ul.cav li{margin-bottom:8px;font-size:.92rem}
+.warn{color:var(--warn)}
+footer{margin-top:40px;font-size:.82rem;color:var(--sub);border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<main>
+<h1>退職日シミュレーター</h1>
+<p class="lead">退職日を「月末」にするか「月末の1日前」にするかで、退職月の健康保険・年金の本人負担がいくら変わるかを計算します。</p>
+
+<section class="panel" aria-label="入力">
+  <div class="grid">
+    <div>
+      <label for="hyo">標準報酬月額(円)
+        <span class="hint">給与明細や「標準報酬月額決定通知書」で確認できます。例の初期値は30万円です。</span></label>
+      <input id="hyo" type="number" inputmode="numeric" min="0" step="1000" value="300000">
+    </div>
+    <div>
+      <label for="kokuho">国民健康保険料の見込み額(円/月)
+        <span class="hint">お住まいの市区町村の国保料の試算ページなどで調べた月額。初期値は例です。</span></label>
+      <input id="kokuho" type="number" inputmode="numeric" min="0" step="100" value="20000">
+    </div>
+    <div>
+      <label for="kenpo">健康保険料率(%)
+        <span class="hint">初期値は協会けんぽ東京支部の2026年度の例です。都道府県や健保組合で異なるため、ご自身の料率に直してください。</span></label>
+      <input id="kenpo" type="number" inputmode="decimal" min="0" step="0.01" value="9.85">
+    </div>
+    <div>
+      <label for="kokunen">国民年金保険料(円/月)
+        <span class="hint">2026年度は月17,920円です。</span></label>
+      <input id="kokunen" type="number" inputmode="numeric" min="0" step="10" value="17920">
+    </div>
+    <div class="span2">
+      <label class="check"><input id="kaigo" type="checkbox"><span>40歳以上65歳未満(介護保険料がかかる)<span class="hint">介護保険料率は協会けんぽの全国一律1.62%(2026年度)で計算します。</span></span></label>
+    </div>
+    <div class="span2">
+      <label class="check"><input id="fuyo" type="checkbox"><span>退職の翌日から、家族の健康保険の扶養に入れる予定<span class="hint">扶養に入れれば国保料・国民年金は不要になります。認定されるかは加入先の判断です(下の注意を確認してください)。</span></span></label>
+    </div>
+  </div>
+</section>
+
+<div id="out" aria-live="polite">
+  <div class="verdict" id="verdict"></div>
+  <div class="cmp">
+    <div class="panel"><h3>月末に退職(例:3月31日)</h3>
+      <table id="tA"></table></div>
+    <div class="panel"><h3>月末の1日前に退職(例:3月30日)</h3>
+      <table id="tB"></table></div>
+  </div>
+  <p class="note" id="be" style="margin-top:12px"></p>
+</div>
+
+<h2>この計算でわかること・わからないこと</h2>
+<p>会社の健康保険と厚生年金は、退職日の翌日が資格を失う日になります。月末に退職するとその月の分まで会社の保険料がかかり、月末の1日前に退職するとその月の会社の保険料はかかりません。かわりに、同じ月の国民年金と国民健康保険(または扶養)に切り替わります。このページは、その差だけを比べます。</p>
+<ul class="cav">
+  <li><strong>含まれるもの:</strong>退職月1か月分の、本人負担の健康保険料(介護保険料を含む)、厚生年金保険料、国民健康保険料、国民年金保険料。</li>
+  <li class="warn"><strong>含まれないもの:</strong>将来の年金額の差(月末退職は厚生年金の加入月数が1か月多くなります)、傷病手当金・出産手当金・失業給付など退職日が条件に関わる給付、住民税、有給消化や賞与。</li>
+  <li><strong>国保料は自治体ごとに違います。</strong>前年の所得や世帯の人数で決まるため、このページでは見込み額を入力する方式にしています。</li>
+  <li><strong>次の会社に翌月1日から入社する場合</strong>は、月末退職なら空白がありません。月末の1日前に退職すると1日だけ会社の保険から外れるため、その月の国民年金・国保の手続きが必要になることがあります(この計算はそのケースを含みます)。</li>
+  <li><strong>扶養に入る場合</strong>は、年収の見込みなどの条件があり、認定は加入先が判断します。事前に確認してください。</li>
+  <li>厚生年金保険料率は18.3%、標準報酬月額の上限(厚生年金は65万円)で計算しています。端数は1円未満を50銭以下切り捨て、50銭超切り上げとしています。</li>
+</ul>
+
+<footer>
+  <p>料率は2026年度のものです(協会けんぽ東京支部の例)。制度や料率は改定されるため、最終的な金額は、勤務先の人事担当、年金事務所、お住まいの市区町村の窓口で確認してください。このページは一般的な情報を示すもので、個別の社会保険・税務の助言ではありません。計算結果による損害について、運営者は責任を負いません。</p>
+</footer>
+</main>
+
+<script>
+(function(){
+  var $ = function(id){return document.getElementById(id);};
+  function r(x){var f=Math.floor(x);return (x-f)>0.5?f+1:f;}
+  function yen(n){return Math.round(n).toLocaleString('ja-JP')+'円';}
+  function num(id){var v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:0;}
+  function row(l,v,cls){return '<tr'+(cls?' class="'+cls+'"':'')+'><td>'+l+'</td><td>'+v+'</td></tr>';}
+
+  function calc(){
+    var h=num('hyo'), kr=num('kenpo'), kokuho=num('kokuho'), kokunen=num('kokunen');
+    var kaigo=$('kaigo').checked, fuyo=$('fuyo').checked;
+
+    var kenpoAmt=r(h*kr/100/2);
+    var kaigoAmt=kaigo?r(h*1.62/100/2):0;
+    var kounenAmt=r(Math.min(h,650000)*18.3/100/2);
+    var A=kenpoAmt+kaigoAmt+kounenAmt;
+
+    var tA=row('健康保険料(本人負担)',yen(kenpoAmt));
+    if(kaigo) tA+=row('介護保険料(本人負担)',yen(kaigoAmt));
+    tA+=row('厚生年金保険料(本人負担)',yen(kounenAmt))+row('合計',yen(A),'total');
+    $('tA').innerHTML=tA;
+
+    var B, tB;
+    if(fuyo){
+      B=0;
+      tB=row('国民健康保険料','不要(扶養)')+row('国民年金保険料','不要(扶養)')+row('合計',yen(0),'total');
+    }else{
+      B=kokuho+kokunen;
+      tB=row('国民健康保険料',yen(kokuho))+row('国民年金保険料',yen(kokunen))+row('合計',yen(B),'total');
+    }
+    $('tB').innerHTML=tB;
+
+    var d=A-B, v=$('verdict');
+    if(h<=0){
+      v.innerHTML='標準報酬月額を入力してください。';
+    }else if(d>0){
+      v.innerHTML='月末の1日前に退職すると、退職月の負担が約'+yen(d)+'軽くなります。<small>退職月1か月分の本人負担の比較です。将来の年金額などは含みません。</small>';
+    }else if(d<0){
+      v.innerHTML='月末に退職したほうが、退職月の負担が約'+yen(-d)+'軽くなります。<small>退職月1か月分の本人負担の比較です。将来の年金額などは含みません。</small>';
+    }else{
+      v.innerHTML='どちらの退職日でも、退職月の負担は同じです。';
+    }
+
+    var be=$('be');
+    if(fuyo){
+      be.textContent='扶養に入れる場合は、国保・国民年金の負担がなくなるため、月末の1日前退職のほうが負担は軽くなります。ただし扶養認定の条件を満たすことが前提です。';
+    }else{
+      var th=A-kokunen;
+      be.textContent=th>0
+        ?'目安:国民健康保険料(月額)が約'+yen(th)+'より低ければ、月末の1日前に退職したほうが負担は軽くなります。'
+        :'目安:国民年金保険料だけで、月末退職の負担を超えています。';
+    }
+  }
+  ['hyo','kokuho','kenpo','kokunen','kaigo','fuyo'].forEach(function(id){
+    $(id).addEventListener('input',calc);
+    $(id).addEventListener('change',calc);
+  });
+  calc();
+})();
+</script>
+</body>
+</html>
