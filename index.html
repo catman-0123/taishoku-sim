@@ -18,36 +18,218 @@
 
 <style>
 :root{color-scheme:light;--bg:#f4f7fb;--surface:#fff;--ink:#172433;--sub:#5b6b7b;--line:#d8e0e9;--accent:#155e75;--accent2:#e8f4f7;--warn:#fff4df;--warnink:#754600;--good:#eaf6ef;--goodink:#175b36}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;line-height:1.7}main{max-width:820px;margin:auto;padding:28px 16px 56px}h1{font-size:1.65rem;line-height:1.35;margin:0 0 8px}h2{font-size:1.16rem;margin:30px 0 10px}h3{font-size:1rem;margin:0 0 10px}.lead{color:var(--sub);margin:0 0 20px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field label,.field-title{display:block;font-weight:650;font-size:.94rem;margin-bottom:5px}.hint{display:block;color:var(--sub);font-size:.82rem;font-weight:400;line-height:1.5;margin-top:3px}input,select{width:100%;font:inherit;color:var(--ink);background:#fff;border:1px solid #bdc9d5;border-radius:8px;padding:10px 11px}input:focus-visible,select:focus-visible{outline:3px solid #9bd5e3;outline-offset:1px}.full{grid-column:1/-1}.choices{display:grid;gap:9px}.choice{display:flex;gap:10px;align-items:flex-start;padding:11px;border:1px solid var(--line);border-radius:9px;font-size:.93rem}.choice input{width:18px;height:18px;flex:0 0 18px;margin:4px 0 0;accent-color:var(--accent)}.choice strong{display:block}.result{background:var(--accent2);border:1px solid #c5e0e8;border-radius:12px;padding:16px;margin:18px 0}.result strong.big{font-size:1.35rem;display:block;line-height:1.5}.muted{color:var(--sub);font-size:.86rem}.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}.compare .panel{margin:0}.amount{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}table{width:100%;border-collapse:collapse;font-size:.92rem}td{padding:7px 0;border-bottom:1px solid var(--line)}td:last-child{text-align:right}tr.total td{font-weight:750;border-bottom:0;padding-top:11px}.notice{background:var(--warn);color:var(--warnink);padding:13px 15px;border-radius:10px;font-size:.9rem}.ok{background:var(--good);color:var(--goodink);padding:13px 15px;border-radius:10px;font-size:.9rem}ul{padding-left:1.25em}li{margin:6px 0}.sources a{color:var(--accent);overflow-wrap:anywhere}footer{border-top:1px solid var(--line);margin-top:34px;padding-top:16px;color:var(--sub);font-size:.82rem}button{font:inherit;background:var(--accent);color:white;border:0;border-radius:8px;padding:10px 15px;cursor:pointer}.small{font-size:.8rem;color:var(--sub)}@media(max-width:620px){main{padding:20px 12px 42px}.grid,.compare{grid-template-columns:1fr}.panel{padding:15px}h1{font-size:1.45rem}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;line-height:1.7}
+main{max-width:820px;margin:auto;padding:28px 16px 56px}
+h1{font-size:1.65rem;line-height:1.35;margin:0 0 8px}
+h2{font-size:1.16rem;margin:30px 0 10px}
+h3{font-size:1rem;margin:0 0 10px}
+.lead{color:var(--sub);margin:0 0 20px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field label,.field-title{display:block;font-weight:650;font-size:.94rem;margin-bottom:5px}
+.hint{display:block;color:var(--sub);font-size:.82rem;font-weight:400;line-height:1.5;margin-top:3px}
+input,select{width:100%;font:inherit;color:var(--ink);background:#fff;border:1px solid #bdc9d5;border-radius:8px;padding:10px 11px}
+input:focus-visible,select:focus-visible{outline:3px solid #9bd5e3;outline-offset:1px}
+.full{grid-column:1/-1}
+.choices{display:grid;gap:9px}
+.choice{display:flex;gap:10px;align-items:flex-start;padding:11px;border:1px solid var(--line);border-radius:9px;font-size:.93rem}
+.choice input{width:18px;height:18px;flex:0 0 18px;margin:4px 0 0;accent-color:var(--accent)}
+.choice strong{display:block}
+.result{background:var(--accent2);border:1px solid #c5e0e8;border-radius:12px;padding:16px;margin:18px 0}
+.result strong.big{font-size:1.35rem;display:block;line-height:1.5}
+.muted{color:var(--sub);font-size:.86rem}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.compare .panel{margin:0}
+.amount{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+td{padding:7px 0;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right}
+tr.total td{font-weight:750;border-bottom:0;padding-top:11px}
+.notice{background:var(--warn);color:var(--warnink);padding:13px 15px;border-radius:10px;font-size:.9rem}
+.ok{background:var(--good);color:var(--goodink);padding:13px 15px;border-radius:10px;font-size:.9rem}
+ul{padding-left:1.25em}
+li{margin:6px 0}
+.sources a{color:var(--accent);overflow-wrap:anywhere}
+footer{border-top:1px solid var(--line);margin-top:34px;padding-top:16px;color:var(--sub);font-size:.82rem}
+footer nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+footer nav a{color:var(--accent);text-decoration:none}
+footer nav a:hover{text-decoration:underline}
+button{font:inherit;background:var(--accent);color:white;border:0;border-radius:8px;padding:10px 15px;cursor:pointer}
+.small{font-size:.8rem;color:var(--sub)}
+@media(max-width:620px){
+ main{padding:20px 12px 42px}
+ .grid,.compare{grid-template-columns:1fr}
+ .panel{padding:15px}
+ h1{font-size:1.45rem}
+}
 </style>
 </head>
-<body><main>
+
+<body>
+<main>
 <h1>退職日シミュレーター</h1>
 <p class="lead">退職日を「月末」にするか「月末の1日前」にするかで、退職月1か月分の社会保険料の本人負担を比較します。</p>
-<div class="notice"><strong>ご利用前に：</strong>このツールは2026年度の料率を初期値にした概算です。協会けんぽ以外の健康保険組合では料率・計算方法が異なる場合があります。入力値と加入先の案内を確認してください。</div>
+
+<div class="notice">
+<strong>ご利用前に：</strong>このツールは2026年度の料率を初期値にした概算です。協会けんぽ以外の健康保険組合では料率・計算方法が異なる場合があります。入力値と加入先の案内を確認してください。
+</div>
 
 <h2>1. 現在の会社の社会保険料</h2>
-<section class="panel"><div class="grid">
-<div class="field"><label for="hyo">標準報酬月額（円）</label><input id="hyo" type="number" min="0" step="1000" value="300000"><span class="hint">給与額そのものではなく、会社から通知される標準報酬月額を入力。</span></div>
-<div class="field"><label for="kenpo">健康保険料率（％・労使合計）</label><input id="kenpo" type="number" min="0" max="30" step="0.01" value="9.85"><span class="hint">協会けんぽ東京支部の2026年度例。神奈川県は9.92％。健保組合は加入先の料率を入力。</span></div>
-<div class="field"><label for="shien">子ども・子育て支援金率（％・労使合計）</label><input id="shien" type="number" min="0" max="5" step="0.01" value="0.23"><span class="hint">2026年4月分からの協会けんぽの率。原則として労使折半。</span></div>
-<div class="field"><label for="kaigo">介護保険料率（％・労使合計）</label><input id="kaigo" type="number" min="0" max="5" step="0.01" value="1.62"><span class="hint">40歳から64歳まで該当する場合に加算。2026年度の協会けんぽ例。</span></div>
-<div class="field"><label for="kokunen">国民年金保険料（円／月）</label><input id="kokunen" type="number" min="0" step="10" value="17920"><span class="hint">2026年度は17,920円。60歳以上など第1号被保険者でない場合は0円に変更。</span></div>
-<div class="field"><label for="kokuho">国民健康保険料の見込み額（円／月）</label><input id="kokuho" type="number" min="0" step="100" value="20000"><span class="hint">自治体の試算額を入力。前年所得・世帯構成・自治体で変わります。</span></div>
-<div class="full"><label class="choice"><input id="isKaigo" type="checkbox"><span><strong>本人が40歳以上65歳未満</strong><span class="hint">チェックすると会社の健康保険料に介護保険料を加算します。</span></span></label></div>
-</div></section>
+<section class="panel">
+<div class="grid">
+
+<div class="field full">
+<label for="prefecture">都道府県</label>
+<select id="prefecture">
+<option value="北海道">北海道</option>
+<option value="青森県">青森県</option>
+<option value="岩手県">岩手県</option>
+<option value="宮城県">宮城県</option>
+<option value="秋田県">秋田県</option>
+<option value="山形県">山形県</option>
+<option value="福島県">福島県</option>
+<option value="茨城県">茨城県</option>
+<option value="栃木県">栃木県</option>
+<option value="群馬県">群馬県</option>
+<option value="埼玉県">埼玉県</option>
+<option value="千葉県">千葉県</option>
+<option value="東京都">東京都</option>
+<option value="神奈川県" selected>神奈川県</option>
+<option value="新潟県">新潟県</option>
+<option value="富山県">富山県</option>
+<option value="石川県">石川県</option>
+<option value="福井県">福井県</option>
+<option value="山梨県">山梨県</option>
+<option value="長野県">長野県</option>
+<option value="岐阜県">岐阜県</option>
+<option value="静岡県">静岡県</option>
+<option value="愛知県">愛知県</option>
+<option value="三重県">三重県</option>
+<option value="滋賀県">滋賀県</option>
+<option value="京都府">京都府</option>
+<option value="大阪府">大阪府</option>
+<option value="兵庫県">兵庫県</option>
+<option value="奈良県">奈良県</option>
+<option value="和歌山県">和歌山県</option>
+<option value="鳥取県">鳥取県</option>
+<option value="島根県">島根県</option>
+<option value="岡山県">岡山県</option>
+<option value="広島県">広島県</option>
+<option value="山口県">山口県</option>
+<option value="徳島県">徳島県</option>
+<option value="香川県">香川県</option>
+<option value="愛媛県">愛媛県</option>
+<option value="高知県">高知県</option>
+<option value="福岡県">福岡県</option>
+<option value="佐賀県">佐賀県</option>
+<option value="長崎県">長崎県</option>
+<option value="熊本県">熊本県</option>
+<option value="大分県">大分県</option>
+<option value="宮崎県">宮崎県</option>
+<option value="鹿児島県">鹿児島県</option>
+<option value="沖縄県">沖縄県</option>
+</select>
+<span class="hint">協会けんぽの支部に対応した都道府県を選択してください。選択すると健康保険料率が自動で切り替わります。</span>
+</div>
+
+<div class="field">
+<label for="hyo">標準報酬月額（円）</label>
+<input id="hyo" type="number" min="0" step="1000" value="300000">
+<span class="hint">給与額そのものではなく、会社から通知される標準報酬月額を入力。</span>
+</div>
+
+<div class="field">
+<label for="kenpo">健康保険料率（％・労使合計）</label>
+<input id="kenpo" type="number" min="0" max="30" step="0.01" value="9.92">
+<span class="hint">2026年度の協会けんぽの料率です。必要に応じて直接変更できます。</span>
+</div>
+
+<div class="field">
+<label for="shien">子ども・子育て支援金率（％・労使合計）</label>
+<input id="shien" type="number" min="0" max="5" step="0.01" value="0.23">
+<span class="hint">2026年度の協会けんぽの率。原則として労使折半。</span>
+</div>
+
+<div class="field">
+<label for="kaigo">介護保険料率（％・労使合計）</label>
+<input id="kaigo" type="number" min="0" max="5" step="0.01" value="1.62">
+<span class="hint">40歳から64歳まで該当する場合に加算。2026年度の協会けんぽの率。</span>
+</div>
+
+<div class="field">
+<label for="kokunen">国民年金保険料（円／月）</label>
+<input id="kokunen" type="number" min="0" step="10" value="17920">
+<span class="hint">2026年度は17,920円。60歳以上など第1号被保険者でない場合は0円に変更。</span>
+</div>
+
+<div class="field">
+<label for="kokuho">国民健康保険料の見込み額（円／月）</label>
+<input id="kokuho" type="number" min="0" step="100" value="20000">
+<span class="hint">自治体の試算額を入力。前年所得・世帯構成・自治体で変わります。</span>
+</div>
+
+<div class="full">
+<label class="choice">
+<input id="isKaigo" type="checkbox">
+<span>
+<strong>本人が40歳以上65歳未満</strong>
+<span class="hint">チェックすると会社の健康保険料に介護保険料を加算します。</span>
+</span>
+</label>
+</div>
+
+</div>
+</section>
 
 <h2>2. 月末1日前に退職した場合の加入先</h2>
-<section class="panel"><div class="choices">
-<label class="choice"><input type="radio" name="after" value="national" checked><span><strong>国民健康保険 ＋ 国民年金第1号</strong><span class="hint">一般的な退職後の切り替え。国保料と国民年金保険料を負担する想定。</span></span></label>
-<label class="choice"><input type="radio" name="after" value="healthdep"><span><strong>家族の健康保険の扶養 ＋ 国民年金第1号</strong><span class="hint">健康保険の扶養には入れるが、国民年金第3号には該当しないケース（例：親の扶養、または第3号要件を満たさない場合）。</span></span></label>
-<label class="choice"><input type="radio" name="after" value="spousedep"><span><strong>配偶者の健康保険の扶養 ＋ 国民年金第3号</strong><span class="hint">20歳以上60歳未満で、厚生年金加入中の配偶者に扶養され、第3号の要件を満たし、認定された場合のみ。</span></span></label>
-</div></section>
+<section class="panel">
+<div class="choices">
 
-<div class="result" aria-live="polite"><div id="verdict"></div><div class="muted" id="differenceNote"></div></div>
+<label class="choice">
+<input type="radio" name="after" value="national" checked>
+<span>
+<strong>国民健康保険 ＋ 国民年金第1号</strong>
+<span class="hint">一般的な退職後の切り替え。国保料と国民年金保険料を負担する想定。</span>
+</span>
+</label>
+
+<label class="choice">
+<input type="radio" name="after" value="healthdep">
+<span>
+<strong>家族の健康保険の扶養 ＋ 国民年金第1号</strong>
+<span class="hint">健康保険の扶養には入れるが、国民年金第3号には該当しないケース（例：親の扶養、または第3号要件を満たさない場合）。</span>
+</span>
+</label>
+
+<label class="choice">
+<input type="radio" name="after" value="spousedep">
+<span>
+<strong>配偶者の健康保険の扶養 ＋ 国民年金第3号</strong>
+<span class="hint">20歳以上60歳未満で、厚生年金加入中の配偶者に扶養され、第3号の要件を満たし、認定された場合のみ。</span>
+</span>
+</label>
+
+</div>
+</section>
+
+<div class="result" aria-live="polite">
+<div id="verdict"></div>
+<div class="muted" id="differenceNote"></div>
+</div>
+
 <div class="compare">
-<section class="panel"><h3>月末に退職</h3><p class="muted">例：3月31日退職</p><table id="tableA"></table></section>
-<section class="panel"><h3>月末の1日前に退職</h3><p class="muted">例：3月30日退職</p><table id="tableB"></table></section>
+<section class="panel">
+<h3>月末に退職</h3>
+<p class="muted">例：3月31日退職</p>
+<table id="tableA"></table>
+</section>
+
+<section class="panel">
+<h3>月末の1日前に退職</h3>
+<p class="muted">例：3月30日退職</p>
+<table id="tableB"></table>
+</section>
 </div>
 
 <h2>計算の前提と注意点</h2>
@@ -60,7 +242,10 @@
 <li>退職後すぐ次の会社で社会保険に加入する場合、任意継続を選ぶ場合、月途中の退職、同月内の資格取得・喪失、保険料免除・減免、賞与、住民税、将来の年金額の差は、この簡易比較の対象外です。</li>
 <li>実際の給与天引き時期は会社の控除方法・給与締日によって異なります。ここで比較しているのは、退職月に対応する保険料の概算であり、退職時の最終給与の振込額ではありません。</li>
 </ul>
-<div class="notice"><strong>重要：</strong>「配偶者の扶養＋第3号」を選んだ場合でも、自動的に認定されるわけではありません。配偶者の勤務先・健康保険者に、健康保険の被扶養者と国民年金第3号の両方の要件を確認してください。</div>
+
+<div class="notice">
+<strong>重要：</strong>「配偶者の扶養＋第3号」を選んだ場合でも、自動的に認定されるわけではありません。配偶者の勤務先・健康保険者に、健康保険の被扶養者と国民年金第3号の両方の要件を確認してください。
+</div>
 
 <h2>参考資料（公的機関）</h2>
 <ul class="sources">
@@ -70,57 +255,161 @@
 <li><a href="https://www.nenkin.go.jp/service/kokunen/hokenryo/hokenryo.html" target="_blank" rel="noopener">日本年金機構：国民年金保険料（令和8年度）</a></li>
 <li><a href="https://www.nenkin.go.jp/service/kokunen/kanyu/20140710-04.html" target="_blank" rel="noopener">日本年金機構：国民年金第3号被保険者の要件</a></li>
 </ul>
-<footer>
-  <p>最終確認：2026年11月。初期値は2026年度の公表値を使用しています。料率・制度は改定されます。計算結果は一般的な制度に基づく概算であり、個別の保険料額や資格認定を保証するものではありません。最終的な金額・資格は、勤務先、加入する健康保険者、年金事務所、市区町村に確認してください。</p>
 
-  <nav aria-label="サイト情報">
-    <a href="./privacy-policy.html">プライバシーポリシー</a>
-    <span>｜</span>
-    <a href="./operator.html">運営者情報</a>
-    <span>｜</span>
-    <a href="./disclaimer.html">免責事項</a>
-  </nav>
+<footer>
+<p>最終確認：2026年11月。初期値は2026年度の公表値を使用しています。料率・制度は改定されます。計算結果は一般的な制度に基づく概算であり、個別の保険料額や資格認定を保証するものではありません。最終的な金額・資格は、勤務先、加入する健康保険者、年金事務所、市区町村に確認してください。</p>
+
+<nav aria-label="サイト情報">
+<a href="./privacy-policy.html">プライバシーポリシー</a>
+<span>｜</span>
+<a href="./operator.html">運営者情報</a>
+<span>｜</span>
+<a href="./disclaimer.html">免責事項</a>
+</nav>
 </footer>
+
 </main>
+
 <script>
 (()=>{
  const $=id=>document.getElementById(id);
  const yen=n=>Math.round(n).toLocaleString('ja-JP')+'円';
  const roundHalfUp=n=>Math.floor(n+0.5);
  const num=id=>{const v=Number($(id).value);return Number.isFinite(v)&&v>0?v:0;};
+
+ // 2026年度 協会けんぽ 都道府県別健康保険料率（労使合計）
+ const healthRates={
+  '北海道':10.28,
+  '青森県':9.85,
+  '岩手県':9.51,
+  '宮城県':10.10,
+  '秋田県':10.01,
+  '山形県':9.75,
+  '福島県':9.50,
+  '茨城県':9.52,
+  '栃木県':9.82,
+  '群馬県':9.68,
+  '埼玉県':9.67,
+  '千葉県':9.73,
+  '東京都':9.85,
+  '神奈川県':9.92,
+  '新潟県':9.21,
+  '富山県':9.59,
+  '石川県':9.70,
+  '福井県':9.71,
+  '山梨県':9.55,
+  '長野県':9.63,
+  '岐阜県':9.80,
+  '静岡県':9.61,
+  '愛知県':9.93,
+  '三重県':9.77,
+  '滋賀県':9.88,
+  '京都府':9.89,
+  '大阪府':10.13,
+  '兵庫県':10.12,
+  '奈良県':9.91,
+  '和歌山県':10.06,
+  '鳥取県':9.86,
+  '島根県':9.94,
+  '岡山県':10.05,
+  '広島県':9.78,
+  '山口県':10.15,
+  '徳島県':10.24,
+  '香川県':10.02,
+  '愛媛県':9.98,
+  '高知県':10.05,
+  '福岡県':10.11,
+  '佐賀県':10.55,
+  '長崎県':10.06,
+  '熊本県':10.08,
+  '大分県':10.08,
+  '宮崎県':9.77,
+  '鹿児島県':10.13,
+  '沖縄県':9.44
+ };
+
  const row=(label,value,cls='')=>`<tr class="${cls}"><td>${label}</td><td class="amount">${value}</td></tr>`;
+
+ // 都道府県を変更したら健康保険料率を自動反映
+ $('prefecture').addEventListener('change',()=>{
+  const prefecture=$('prefecture').value;
+  $('kenpo').value=healthRates[prefecture];
+  calc();
+ });
+
  function calc(){
-  const h=num('hyo'), healthRate=num('kenpo'), supportRate=num('shien'), careRate=$('isKaigo').checked?num('kaigo'):0;
-  const pensionRate=18.3, pensionBase=Math.min(h,650000);
+  const h=num('hyo');
+  const healthRate=num('kenpo');
+  const supportRate=num('shien');
+  const careRate=$('isKaigo').checked?num('kaigo'):0;
+
+  const pensionRate=18.3;
+  const pensionBase=Math.min(h,650000);
+
   const health=roundHalfUp(h*healthRate/100/2);
   const support=roundHalfUp(h*supportRate/100/2);
   const care=roundHalfUp(h*careRate/100/2);
   const pension=roundHalfUp(pensionBase*pensionRate/100/2);
+
   const employerTotal=health+support+care+pension;
+
   const mode=document.querySelector('input[name="after"]:checked').value;
-  let nationalHealth=0, nationalPension=0, postRows='';
+
+  let nationalHealth=0;
+  let nationalPension=0;
+  let postRows='';
+
   if(mode==='national'){
-   nationalHealth=num('kokuho'); nationalPension=num('kokunen');
-   postRows=row('国民健康保険料',yen(nationalHealth))+row('国民年金保険料',yen(nationalPension));
+   nationalHealth=num('kokuho');
+   nationalPension=num('kokunen');
+   postRows=row('国民健康保険料',yen(nationalHealth))
+          +row('国民年金保険料',yen(nationalPension));
   }else if(mode==='healthdep'){
    nationalPension=num('kokunen');
-   postRows=row('健康保険料','扶養のため本人負担なし')+row('国民年金保険料',yen(nationalPension));
+   postRows=row('健康保険料','扶養のため本人負担なし')
+          +row('国民年金保険料',yen(nationalPension));
   }else{
-   postRows=row('健康保険料','扶養のため本人負担なし')+row('国民年金保険料','第3号のため本人負担なし');
+   postRows=row('健康保険料','扶養のため本人負担なし')
+          +row('国民年金保険料','第3号のため本人負担なし');
   }
+
   const postTotal=nationalHealth+nationalPension;
   const diff=employerTotal-postTotal;
-  $('tableA').innerHTML=row('健康保険料',yen(health))+row('子ども・子育て支援金',yen(support))+(careRate?row('介護保険料',yen(care)):'')+row('厚生年金保険料',yen(pension))+row('合計',yen(employerTotal),'total');
-  $('tableB').innerHTML=postRows+row('合計',yen(postTotal),'total');
-  if(h<=0){$('verdict').innerHTML='<strong class="big">標準報酬月額を入力してください。</strong>';}
-  else if(diff>0){$('verdict').innerHTML=`<strong class="big">月末の1日前に退職すると、退職月の負担が約${yen(diff)}軽くなります。</strong>`;}
-  else if(diff<0){$('verdict').innerHTML=`<strong class="big">月末に退職すると、退職月の負担が約${yen(-diff)}軽くなります。</strong>`;}
-  else{$('verdict').innerHTML='<strong class="big">どちらの退職日でも、退職月の負担は変わりません。</strong>';}
+
+  $('tableA').innerHTML=
+   row('健康保険料',yen(health))
+   +row('子ども・子育て支援金',yen(support))
+   +(careRate?row('介護保険料',yen(care)):'')
+   +row('厚生年金保険料',yen(pension))
+   +row('合計',yen(employerTotal),'total');
+
+  $('tableB').innerHTML=
+   postRows+row('合計',yen(postTotal),'total');
+
+  if(h<=0){
+   $('verdict').innerHTML='<strong class="big">標準報酬月額を入力してください。</strong>';
+  }else if(diff>0){
+   $('verdict').innerHTML=`<strong class="big">月末の1日前に退職すると、退職月の負担が約${yen(diff)}軽くなります。</strong>`;
+  }else if(diff<0){
+   $('verdict').innerHTML=`<strong class="big">月末に退職すると、退職月の負担が約${yen(-diff)}軽くなります。</strong>`;
+  }else{
+   $('verdict').innerHTML='<strong class="big">どちらの退職日でも、退職月の負担は変わりません。</strong>';
+  }
+
   $('differenceNote').textContent='入力内容に基づく概算です。退職月1か月分の本人負担を比較しており、将来の年金額や給付の差は含みません。';
  }
- ['hyo','kenpo','shien','kaigo','kokunen','kokuho','isKaigo'].forEach(id=>{ $(id).addEventListener('input',calc);$(id).addEventListener('change',calc); });
- document.querySelectorAll('input[name="after"]').forEach(el=>el.addEventListener('change',calc));
+
+ ['hyo','kenpo','shien','kaigo','kokunen','kokuho','isKaigo'].forEach(id=>{
+  $(id).addEventListener('input',calc);
+  $(id).addEventListener('change',calc);
+ });
+
+ document.querySelectorAll('input[name="after"]').forEach(el=>{
+  el.addEventListener('change',calc);
+ });
+
  calc();
 })();
 </script>
-</body></html>
+</body>
+</html>
