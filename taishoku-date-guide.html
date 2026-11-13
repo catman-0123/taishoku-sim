@@ -12,6 +12,33 @@
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;line-height:1.85}
 main{max-width:820px;margin:auto;padding:28px 16px 56px}h1{font-size:1.75rem;line-height:1.45;margin:0 0 12px}h2{font-size:1.3rem;line-height:1.5;margin:34px 0 12px}h3{font-size:1.05rem;margin:20px 0 8px}p{margin:10px 0}.lead{color:var(--sub);font-size:1.02rem;margin:0 0 20px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}.answer{background:var(--accent2);border:1px solid #c5e0e8;border-radius:12px;padding:16px;margin:20px 0}.answer strong{display:block;font-size:1.08rem;margin-bottom:5px}.notice{background:var(--warn);color:var(--warnink);padding:13px 15px;border-radius:10px;font-size:.9rem;margin:18px 0}.muted{color:var(--sub);font-size:.88rem}a{color:var(--accent)}table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.94rem}th,td{padding:10px 9px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f0f5f8}ul,ol{padding-left:1.35em}li{margin:7px 0}.cta{display:inline-block;background:var(--accent);color:white;text-decoration:none;padding:11px 17px;border-radius:9px;font-weight:700;margin-top:8px}.breadcrumb{font-size:.85rem;margin-bottom:18px}.breadcrumb a{color:var(--sub)}footer{border-top:1px solid var(--line);margin-top:38px;padding-top:16px;color:var(--sub);font-size:.84rem}footer a{margin-right:14px}
 @media(max-width:620px){main{padding:20px 12px 42px}h1{font-size:1.48rem}.panel{padding:15px}table{font-size:.86rem}th,td{padding:8px 6px}}
+
+/* Visual guide components */
+.visual-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:center;background:linear-gradient(120deg,#fff 0%,#eaf5ff 100%);border:1px solid #d7e7f5;border-radius:18px;padding:22px;margin:18px 0 22px;overflow:hidden}
+.visual-hero .eyebrow{display:inline-block;background:#dceeff;color:#1762a5;border-radius:999px;padding:4px 11px;font-size:.82rem;font-weight:700;margin-bottom:9px}
+.visual-hero h1{color:#17345b}.visual-hero p{color:#536b84;margin:0}
+.hero-art{width:100%;height:auto;display:block}
+.compare-visual{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+.date-card{border:1px solid var(--line);border-radius:14px;padding:15px;background:#fff;overflow:hidden}
+.date-card.monthend{background:linear-gradient(145deg,#f1f7ff,#fff);border-color:#c9def7}
+.date-card.before{background:linear-gradient(145deg,#effaf5,#fff);border-color:#ccebd9}
+.date-card h3{margin:0 0 8px;font-size:1rem}.date-card.monthend h3{color:#2466ad}.date-card.before h3{color:#21804b}
+.date-card .date-num{font-size:2.6rem;line-height:1.15;font-weight:800;text-align:center;margin:5px 0}
+.date-card .date-label{text-align:center;color:var(--sub);font-size:.86rem}
+.date-card .date-icon{width:100%;max-width:160px;height:112px;display:block;margin:0 auto}
+.date-card p{font-size:.9rem;margin:8px 0 0}
+.timeline{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px;margin:20px 0}
+.timeline-row{display:grid;grid-template-columns:110px 1fr 105px;align-items:center;gap:10px;margin:10px 0}
+.timeline-label{font-size:.84rem;font-weight:700}.timeline-bar{height:13px;border-radius:99px;background:#dcecff;position:relative;overflow:hidden}.timeline-bar.green{background:#d9f2e3}
+.timeline-end{font-size:.8rem;color:var(--sub);text-align:right}
+.choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.choice-card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;text-align:center}
+.choice-card svg{width:58px;height:58px;display:block;margin:0 auto 7px}
+.choice-card strong{display:block;font-size:.92rem}.choice-card span{display:block;color:var(--sub);font-size:.8rem;margin-top:4px}
+.visual-note{display:flex;gap:12px;align-items:center;background:#f0f7ff;border-radius:12px;padding:13px 15px;margin:18px 0}
+.visual-note svg{width:42px;height:42px;flex:0 0 42px}
+@media(max-width:620px){.visual-hero{grid-template-columns:1fr;padding:17px}.hero-art{max-height:170px}.compare-visual{grid-template-columns:1fr 1fr;gap:8px}.date-card{padding:10px}.date-card .date-num{font-size:2rem}.timeline-row{grid-template-columns:88px 1fr;gap:7px}.timeline-end{grid-column:2;text-align:left}.choice-grid{grid-template-columns:1fr}}
+
 </style>
 <script type="application/ld+json">
 {
@@ -29,8 +56,21 @@ main{max-width:820px;margin:auto;padding:28px 16px 56px}h1{font-size:1.75rem;lin
 <body>
 <main>
 <nav class="breadcrumb" aria-label="パンくずリスト"><a href="./index.html">退職日シミュレーター</a> ＞ 月末退職と月末前日退職の違い</nav>
-<h1>月末退職と月末前日退職はどっちが得？社会保険料の違いを解説</h1>
-<p class="lead">退職日を月末にするか、月末の1日前にするか。たった1日の違いですが、会社の健康保険・厚生年金の保険料や、退職後に加入する制度に影響します。</p>
+<section class="visual-hero" aria-label="記事の紹介">
+ <div>
+  <span class="eyebrow">退職前に知っておきたい社会保険の話</span>
+  <h1>月末退職と月末前日退職はどっちが得？</h1>
+  <p>たった1日の違いで変わる、社会保険料と退職後の保険の仕組みを図解でわかりやすく解説します。</p>
+ </div>
+ <svg class="hero-art" viewBox="0 0 360 230" role="img" aria-label="月末の31日と前日の30日を比べるカレンダーのイラスト">
+  <circle cx="180" cy="116" r="105" fill="#dceeff"/>
+  <path d="M38 187 Q180 160 322 187" fill="none" stroke="#b8d9f5" stroke-width="5" stroke-linecap="round"/>
+  <g transform="translate(32 48) rotate(-7 72 75)"><rect x="0" y="12" width="132" height="144" rx="15" fill="#fff" stroke="#8bb9e7" stroke-width="4"/><path d="M0 28Q0 12 15 12H117Q132 12 132 28V52H0Z" fill="#4d9be2"/><path d="M36 5v25M96 5v25" stroke="#527fae" stroke-width="8" stroke-linecap="round"/><text x="66" y="43" fill="white" font-size="17" text-anchor="middle" font-weight="700">月末退職</text><text x="66" y="112" fill="#245b91" font-size="54" text-anchor="middle" font-weight="800">31</text><text x="66" y="137" fill="#6d8297" font-size="13" text-anchor="middle">社会保険料あり</text></g>
+  <g transform="translate(196 48) rotate(6 72 75)"><rect x="0" y="12" width="132" height="144" rx="15" fill="#fff" stroke="#8fd0ae" stroke-width="4"/><path d="M0 28Q0 12 15 12H117Q132 12 132 28V52H0Z" fill="#38a66c"/><path d="M36 5v25M96 5v25" stroke="#4f9c75" stroke-width="8" stroke-linecap="round"/><text x="66" y="43" fill="white" font-size="16" text-anchor="middle" font-weight="700">月末前日</text><text x="66" y="112" fill="#21804b" font-size="54" text-anchor="middle" font-weight="800">30</text><text x="66" y="137" fill="#6d8297" font-size="13" text-anchor="middle">会社分は原則なし</text></g>
+  <path d="M165 119h29m-8 -8 8 8-8 8" fill="none" stroke="#e4a52c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="180" cy="20" r="10" fill="#ffd76a"/><path d="M180 2v-9M180 47v-9M153 20h-9M216 20h-9" stroke="#e6b13b" stroke-width="3" stroke-linecap="round"/>
+ </svg>
+</section>
 
 <div class="answer">
 <strong>結論：月末前日退職の方が、会社の社会保険料は1か月分発生しないのが原則。</strong>
@@ -47,6 +87,11 @@ main{max-width:820px;margin:auto;padding:28px 16px 56px}h1{font-size:1.75rem;lin
 </tbody>
 </table>
 <p>つまり、3月31日退職なら3月分の健康保険・厚生年金保険料がかかります。一方、3月30日退職なら資格喪失日は3月31日となるため、会社の社会保険料は原則として2月分までです。</p>
+<div class="compare-visual" aria-label="月末退職と月末前日退職の比較図">
+ <div class="date-card monthend"><h3>月末退職</h3><svg class="date-icon" viewBox="0 0 160 112" role="img" aria-label="31日を示すカレンダー"><rect x="24" y="17" width="112" height="88" rx="12" fill="#fff" stroke="#8bb9e7" stroke-width="4"/><path d="M24 30Q24 17 37 17H123Q136 17 136 30V43H24Z" fill="#4d9be2"/><path d="M53 9v20M107 9v20" stroke="#527fae" stroke-width="7" stroke-linecap="round"/><text x="80" y="88" text-anchor="middle" font-size="47" font-weight="800" fill="#245b91">31</text></svg><div class="date-label">例：3月31日退職</div><p>資格喪失日は4月1日。<strong>3月分の会社の社会保険料が発生</strong>します。</p></div>
+ <div class="date-card before"><h3>月末前日退職</h3><svg class="date-icon" viewBox="0 0 160 112" role="img" aria-label="30日を示すカレンダー"><rect x="24" y="17" width="112" height="88" rx="12" fill="#fff" stroke="#8fd0ae" stroke-width="4"/><path d="M24 30Q24 17 37 17H123Q136 17 136 30V43H24Z" fill="#38a66c"/><path d="M53 9v20M107 9v20" stroke="#4f9c75" stroke-width="7" stroke-linecap="round"/><text x="80" y="88" text-anchor="middle" font-size="47" font-weight="800" fill="#21804b">30</text></svg><div class="date-label">例：3月30日退職</div><p>資格喪失日は3月31日。<strong>3月分の会社の社会保険料は原則発生しません。</strong></p></div>
+</div>
+<div class="visual-note"><svg viewBox="0 0 48 48" role="img" aria-label="ポイント"><circle cx="24" cy="24" r="21" fill="#d7ebff"/><path d="M24 10v17m0 7v1" stroke="#2878c7" stroke-width="4" stroke-linecap="round"/></svg><div><strong>ポイント：</strong>会社の社会保険料がなくなる一方、退職後の健康保険・年金の負担が発生する場合があります。</div></div>
 <p class="muted">このルールは日本年金機構の案内に基づいています。給与から実際に天引きされるタイミングは、会社の給与締日・控除方法によって異なります。</p>
 
 <h2>2. 月末前日退職なら、1か月分まるごと得する？</h2>
@@ -58,6 +103,11 @@ main{max-width:820px;margin:auto;padding:28px 16px 56px}h1{font-size:1.75rem;lin
 <li><strong>健康保険の任意継続：</strong>一定の条件を満たせば、退職前の健康保険を最長2年間継続できます。協会けんぽの場合、原則として退職日の翌日から20日以内の申請が必要です。保険料は在職中と異なり、原則本人が全額負担します。</li>
 <li><strong>家族の健康保険の扶養：</strong>家族が加入する健康保険の被扶養者要件を満たし、認定されれば、被扶養者本人の健康保険料負担はありません。</li>
 </ul>
+<div class="choice-grid" aria-label="退職後の健康保険の主な選択肢">
+ <div class="choice-card"><svg viewBox="0 0 64 64" role="img" aria-label="市役所"><rect x="9" y="20" width="46" height="35" rx="4" fill="#e4f1ff" stroke="#438bd0" stroke-width="3"/><path d="M5 20 32 7l27 13H5Z" fill="#75afe6" stroke="#438bd0" stroke-width="3"/><path d="M20 29v8m12-8v8m12-8v8M27 55V42h10v13" stroke="#438bd0" stroke-width="3"/></svg><strong>国民健康保険</strong><span>市区町村で加入・保険料を確認</span></div>
+ <div class="choice-card"><svg viewBox="0 0 64 64" role="img" aria-label="保険証"><rect x="7" y="13" width="50" height="38" rx="7" fill="#e5f8ef" stroke="#35a36b" stroke-width="3"/><circle cx="22" cy="29" r="7" fill="#83d3a5"/><path d="M13 44q9-12 18 0m7-14h12m-12 8h12" fill="none" stroke="#35a36b" stroke-width="3" stroke-linecap="round"/></svg><strong>任意継続</strong><span>条件・申請期限・保険料を確認</span></div>
+ <div class="choice-card"><svg viewBox="0 0 64 64" role="img" aria-label="家族"><circle cx="24" cy="22" r="9" fill="#ffe7bf" stroke="#d99b39" stroke-width="3"/><circle cx="43" cy="25" r="7" fill="#ffe7bf" stroke="#d99b39" stroke-width="3"/><path d="M8 53q2-19 16-19t16 19m-2-13q14-8 19 13" fill="#fff1d9" stroke="#d99b39" stroke-width="3" stroke-linecap="round"/></svg><strong>家族の扶養</strong><span>被扶養者の認定要件を確認</span></div>
+</div>
 <p>国民健康保険と任意継続のどちらが安いかは人によって異なります。退職前に市区町村と健康保険者へ保険料を確認して比較するのがおすすめです。</p>
 
 <h3>年金は国民年金への切り替えが必要になる場合がある</h3>
