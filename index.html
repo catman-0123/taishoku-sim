@@ -56,6 +56,17 @@ footer nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
 footer nav a{color:var(--accent);text-decoration:none}
 footer nav a:hover{text-decoration:underline}
 button{font:inherit;background:var(--accent);color:white;border:0;border-radius:8px;padding:10px 15px;cursor:pointer}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,38%);align-items:center;gap:18px;background:linear-gradient(120deg,#fff 0%,#edf6ff 100%);border:1px solid #d7e7f5;border-radius:16px;padding:18px 20px;margin:0 0 18px;overflow:hidden}
+.hero h1{margin:0 0 8px;color:#17345b}
+.hero .lead{margin:0;color:#536b84}
+.hero img{display:block;width:100%;max-height:245px;object-fit:contain;object-position:center;border-radius:12px}
+.illustration-strip{display:flex;align-items:center;gap:20px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 18px;margin:16px 0 24px}
+.illustration-strip img{display:block;width:42%;max-width:290px;height:auto;object-fit:contain}
+.illustration-strip p{margin:0;color:var(--sub);font-size:.94rem}
+.illustration-strip strong{display:block;color:var(--ink);font-size:1.02rem;margin-bottom:4px}
+@media(max-width:620px){.hero{grid-template-columns:1fr;gap:6px;padding:16px}.hero img{max-height:190px;justify-self:center}.illustration-strip{gap:10px;padding:10px}.illustration-strip img{width:40%;max-width:160px}}
+
 .small{font-size:.8rem;color:var(--sub)}
 @media(max-width:620px){
  main{padding:20px 12px 42px}
@@ -68,11 +79,21 @@ button{font:inherit;background:var(--accent);color:white;border:0;border-radius:
 
 <body>
 <main>
-<h1>退職日シミュレーター</h1>
-<p class="lead">退職日を「月末」にするか「月末の1日前」にするかで、退職月1か月分の社会保険料の本人負担を比較します。</p>
+<section class="hero" aria-label="退職日シミュレーターの紹介">
+  <div class="hero-copy">
+    <h1>退職日シミュレーター</h1>
+    <p class="lead">退職日を「月末」にするか「月末の1日前」にするかで、退職月1か月分の社会保険料の本人負担を比較します。</p>
+  </div>
+  <img src="./images/retirement-worker.png" alt="退職する会社員のイラスト" width="696" height="630">
+</section>
 
 <div class="notice">
 <strong>ご利用前に：</strong>このツールは2026年度の料率を初期値にした概算です。協会けんぽ以外の健康保険組合では料率・計算方法が異なる場合があります。入力値と加入先の案内を確認してください。
+</div>
+
+<div class="illustration-strip">
+  <img src="./images/calculator-coins.png" alt="電卓、カレンダー、硬貨のイラスト" width="615" height="350" loading="lazy">
+  <p><strong>退職後のお金の負担を確認</strong>退職日の違いによって変わる社会保険料を、条件を入力して比較できます。</p>
 </div>
 
 <h2>1. 現在の会社の社会保険料</h2>
